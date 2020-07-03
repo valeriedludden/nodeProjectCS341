@@ -5,18 +5,15 @@ const { Pool } = require('pg');
 require('dotenv').config();
 
 const connectionString = process.env.DATABASE_URL;
-const pool = new Pool({connectionString: process.env.DATABASE_URL,
-  ssl: {
-    rejectUnauthorized: false
-  }
+
+const pool = new Pool({
+  connectionString: process.env.DATABASE_URL || 'postgres://wqtqmfmnksxhcp:80e91f719c5d8acd0c3938dc69200047bb309f3c6622ac19ff76da7aad67793a@ec2-54-81-37-115.compute-1.amazonaws.com:5432/d6121u2v6vbvmt?ssl=true',
+  ssl: process.env.NODE_TLS_REJECT_UNAUTHORIZED = 0
 });
 
-// const pool = new Pool({connectionString: connectionString});
-
-// const pool = new Pool({
-//   connectionString: process.env.DATABASE_URL || 'postgres://wqtqmfmnksxhcp:80e91f719c5d8acd0c3938dc69200047bb309f3c6622ac19ff76da7aad67793a@ec2-54-81-37-115.compute-1.amazonaws.com:5432/d6121u2v6vbvmt',
-//   ssl: process.env.DATABASE_URL ? true : false
-// })
+app.post(function(req, res, next){
+  next();
+});
 
 app.use(express.static('/views'));
 app.set("views", "views");
@@ -29,7 +26,7 @@ app.get("/", function (req, res) {
   res.end()
 });
 
-var sql = "SELECT * FROM document_owner";
+var sql = "SELECT first_name FROM document_owner where first_name = 'John'";
 
 pool.query(sql, function(err, result) {
   // If an error occurred...
@@ -38,9 +35,9 @@ pool.query(sql, function(err, result) {
     console.log(err);
   }
 
-  // Log this to the console for debugging purposes.
+  //Log this to the console for debugging purposes.
   console.log("Back from DB with result:");
-  console.log(result);
+  console.log(JSON.stringify(result.rows));
 
 
 });
