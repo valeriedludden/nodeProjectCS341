@@ -3,8 +3,15 @@ const PORT = process.env.PORT || 5000;
 const app = express();
 const { Pool } = require('pg');
 require('dotenv').config();
+var router = express.Router();
 
 const connectionString = process.env.DATABASE_URL;
+app.use(express.static('/views'));
+app.set("views", "views");
+app.set("view engine", "ejs");
+app.use(express.json()); // support json encoded bodies
+app.use(express.urlencoded({extended: true})); // support url encoded bodies
+console.log("DATA = ", connectionString);
 
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
@@ -15,10 +22,16 @@ app.post(function(req, res, next){
   next();
 });
 
-app.use(express.static('/views'));
-app.set("views", "views");
-app.set("view engine", "ejs");
-console.log("DATA = ", connectionString);
+app.get('/ajax', function(req, res){
+  console.log("ajax request")
+  res.render('ajax', {title: 'An Ajax Example', quote: "AJAX is great!"});
+});
+app.post('/ajax', function(req, res){
+  res.render('ajax', {title: 'An Ajax Example', quote: req.body.quote});
+});
+
+
+
 
 app.get("/", function (req, res) {
   console.log("Received a request for the HOME page");
