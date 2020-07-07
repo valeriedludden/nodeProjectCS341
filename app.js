@@ -11,7 +11,6 @@ app.use(express.static(__dirname +'/public'));
 app.set("view engine", "ejs");
 app.use(express.json()); // support json encoded bodies
 app.use(express.urlencoded({extended: true})); // support url encoded bodies
-console.log("DATA = ", connectionString);
 
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
@@ -39,7 +38,7 @@ app.get("/", function (req, res) {
   res.end()
 });
 
-
+var sql = "SELECT a.name, a.price, a.type_id, t.name, p.amount FROM activity a, type t, price p where a.type_id = t.id AND a.price = p.id;"
 
 pool.query(sql, function(err, result) {
   // If an error occurred...
@@ -54,17 +53,18 @@ pool.query(sql, function(err, result) {
 
 
 });
-function getActivites(callback) {
-  let sql = "SELECT a.name, a.price, a.type_id, t.name, p.amount FROM activity a, type t, price p where a.type_id = t.id AND a.price = p.id;"
-  pool.query(sql, params, function (err, result) {
-    if (err) {
-      console.log("Error in query: ")
-      console.log(err);
-      callback(err, null);
-    }
-    callback(null, result.rows);
-  });
-}
+// function getActivites(callback) {
+//
+//   pool.query(sql, function (err, result) {
+//     if (err) {
+//       console.log("Error in query: ")
+//       console.log(err);
+//       callback(err, null);
+//     }
+//     // callback(null, result.rows);
+//     console.log(JSON.stringify(result.rows));
+//   });
+// }
 
 
 app.listen(PORT, function() {
