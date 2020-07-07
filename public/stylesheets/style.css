@@ -8,6 +8,7 @@ a {
 }
 h1{
   color: deeppink;
+  font-family: "Comic Sans MS";
 }
 .pink {
   color: pink;
@@ -15,5 +16,5 @@ h1{
 }
 
 div {
-
+  background: aqua;
 }
