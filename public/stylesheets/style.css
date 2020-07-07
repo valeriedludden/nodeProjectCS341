@@ -6,15 +6,9 @@ body {
 a {
   color: #00B7FF;
 }
-h1{
-  color: deeppink;
-  font-family: "Comic Sans MS";
-}
-.pink {
-  color: pink;
-  background: aqua;
-}
 
-div {
-  background: aqua;
+.carousel-item {
+  height: 400px;
+  object-fit: cover;
+  width: 100%;
 }

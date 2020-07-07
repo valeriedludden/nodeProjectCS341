@@ -6,8 +6,8 @@ require('dotenv').config();
 var router = express.Router();
 
 const connectionString = process.env.DATABASE_URL;
-app.use(express.static('/views'));
-app.set("views", "views");
+app.use(express.static(__dirname +'/public'));
+// app.set("views", "views"); todo is the needed?
 app.set("view engine", "ejs");
 app.use(express.json()); // support json encoded bodies
 app.use(express.urlencoded({extended: true})); // support url encoded bodies
@@ -39,7 +39,7 @@ app.get("/", function (req, res) {
   res.end()
 });
 
-var sql = "SELECT first_name FROM document_owner where first_name = 'John'";
+
 
 pool.query(sql, function(err, result) {
   // If an error occurred...
@@ -54,6 +54,17 @@ pool.query(sql, function(err, result) {
 
 
 });
+function getActivites(callback) {
+  let sql = "SELECT a.name, a.price, a.type_id, t.name, p.amount FROM activity a, type t, price p where a.type_id = t.id AND a.price = p.id;"
+  pool.query(sql, params, function (err, result) {
+    if (err) {
+      console.log("Error in query: ")
+      console.log(err);
+      callback(err, null);
+    }
+    callback(null, result.rows);
+  });
+}
 
 
 app.listen(PORT, function() {
