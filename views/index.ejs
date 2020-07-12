@@ -11,11 +11,14 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
             integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
             crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="/javascripts/activity-clientside.js"></script>
+
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
           integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <link rel='stylesheet' href='/stylesheets/style.css'/>
 </head>
-<body>
+<body onload="listActivities()">
 <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
     <div class="carousel-inner">
         <div class="carousel-item active">
@@ -33,11 +36,13 @@
 <h1 class="pink">What would you like to do today?</h1>
 <p>To search for activities in Utah click the button</p>
 <!--&lt;!&ndash;<input type="text" id="txtSearch">&ndash;&gt; todo put back in for searches-->
-<button onclick="search();">See Activities</button>
+<button onclick="listActivities()">See Activities</button>
 <div id="activity-container"><h3>Activities</h3>
     <ul id="results">
 
     </ul>
 </div>
+
 </body>
+
 </html>
