@@ -8,7 +8,7 @@ const pool = new Pool({
 function listAll(callback) {
     console.log("Getting list of activities");
 
-    let sql = "SELECT a.name, a.price, a.type_id, t.name, p.amount FROM activity a, type t, price p where a.type_id = t.id AND a.price = p.id;"
+    let sql = "SELECT a.name, a.price, a.type_id, t.type, p.amount FROM activity a, type t, price p where a.type_id = t.id AND a.price = p.id;"
 
     pool.query(sql, function(err, dbResults){
         if(err){

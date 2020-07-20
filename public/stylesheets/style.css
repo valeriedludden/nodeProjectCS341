@@ -11,4 +11,19 @@ a {
   height: 400px;
   object-fit: cover;
   width: 100%;
+  max-width: 600px;
+}
+#carouselExampleSlidesOnly{
+  width: 60%;
+  margin: auto;
+}
+#results{
+  margin: auto;
+  display: flex;
+  flex-direction: row;
+}
+.card{
+  margin: 20px;
+  padding: 5px;
+
 }
