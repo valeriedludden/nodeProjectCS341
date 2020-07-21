@@ -8,7 +8,7 @@ function getActivityList(req, res) {
 }
 function getActivityById(req, res){
 
-    let actID = 4;
+    let actID = req.query.id;
     console.log("ACTIVITY ID = ", actID)
     activityModel.getActivityById(actID, function (err, results) {
         res.json(results)
