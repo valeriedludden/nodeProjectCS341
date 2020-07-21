@@ -8,7 +8,7 @@ const pool = new Pool({
 function listAll(callback) {
     console.log("Getting list of activities");
 
-    let sql = "SELECT a.name, a.price, a.type_id, t.type, p.amount FROM activity a, type t, price p where a.type_id = t.id AND a.price = p.id;"
+    let sql = "SELECT a.name, a.id, a.price, a.type_id, t.type, p.amount FROM activity a, type t, price p where a.type_id = t.id AND a.price = p.id ORDER BY a.name;"
 
     pool.query(sql, function(err, dbResults){
         if(err){
@@ -24,6 +24,30 @@ function listAll(callback) {
     })
 }
 
+function getActivityById(id,callback){
+    console.log("Getting list of activities");
+    let actID = id;
+    console.log("ID = " + actID)
+
+    let sql = `SELECT a.name, a.id, a.price, a.type_id, t.type, p.amount FROM activity a, type t, price p WHERE a.id = ${actID} AND  a.type_id = t.id AND a.price = p.id ORDER BY a.name;`
+
+
+    pool.query(sql, function(err, dbResults){
+        if(err){
+            console.log("Error line 34 activityModel ", err)
+        }
+        else{
+            let results = {
+                success: true,
+                list: dbResults.rows
+            }
+            callback(null, results)
+        }
+    })
+
+}
+
 module.exports = {
-    listAll: listAll
+    listAll: listAll,
+    getActivityById: getActivityById
 };

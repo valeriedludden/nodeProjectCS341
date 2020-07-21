@@ -6,7 +6,16 @@ function getActivityList(req, res) {
         res.json(results);
     })
 }
+function getActivityById(req, res){
+
+    let actID = 4;
+    console.log("ACTIVITY ID = ", actID)
+    activityModel.getActivityById(actID, function (err, results) {
+        res.json(results)
+    });
+}
 
 module.exports = {
-    getActivityList: getActivityList
+    getActivityList: getActivityList,
+    getActivityById: getActivityById
 };

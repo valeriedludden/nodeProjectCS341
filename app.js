@@ -26,6 +26,7 @@ app.get("/", function (req, res) {
   res.end()
 });
 app.get("/list", activityController.getActivityList);
+app.get("/item/:id", activityController.getActivityById);
 
 app.get('/ajax', function(req, res){
   console.log("ajax request")
