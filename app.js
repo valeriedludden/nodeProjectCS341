@@ -5,6 +5,7 @@ const app = express();
 const { Pool } = require('pg');
 require('dotenv').config();
 
+
 const activityController = require("./controller/activityController");
 
 app.use(express.static(path.join(__dirname +'/public')));
@@ -27,6 +28,7 @@ app.get("/", function (req, res) {
 });
 app.get("/list", activityController.getActivityList);
 app.get("/item/:id", activityController.getActivityById);
+app.post("/item/:id", activityController.updateActivity);
 
 app.get('/ajax', function(req, res){
   console.log("ajax request")

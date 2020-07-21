@@ -21,31 +21,30 @@
 </head>
 <!--<body onload="listActivities()">-->
 <body>
-<div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
-    <div class="carousel-inner">
-        <div class="carousel-item active">
-            <img class="d-block w-100" src="/images/ice skating.jpg" alt="First slide">
-        </div>
-        <div class="carousel-item">
-            <img class="d-block w-100" src="/images/Hiking.jpg" alt="Second slide">
-        </div>
-        <div class="carousel-item">
-            <img class="d-block w-100" src="/images/climbing.jpg" alt="Third slide">
+    <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img class="d-block w-100" src="/images/ice skating.jpg" alt="First slide">
+            </div>
+            <div class="carousel-item">
+                <img class="d-block w-100" src="/images/Hiking.jpg" alt="Second slide">
+            </div>
+            <div class="carousel-item">
+                <img class="d-block w-100" src="/images/climbing.jpg" alt="Third slide">
+            </div>
         </div>
     </div>
-</div>
-<div class="home">
-    <h1>What would you like to do today?</h1>
-    <p>To search for activities in Utah click the button</p>
-    <!--&lt;!&ndash;<input type="text" id="txtSearch">&ndash;&gt; todo put back in for searches-->
-    <button onclick="listActivities()">See Activities</button>
-</div>
-
-<!--<div id="activity-container"><h3>Activities</h3>-->
-    <div id="results">
-
+    <div class="home">
+        <h1>What would you like to do today?</h1>
+        <p>To search for activities in Utah click the button</p>
+        <button onclick="listActivities()">See Activities</button>
     </div>
-</div>
+
+    <div id="results"></div>
+    <div id="singleActivity"></div>
+    <div id="updateActivity"></div>
+    <div id="deleteActivity"></div>
+    <div id="updated"></div>
 
 </body>
 
