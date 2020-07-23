@@ -92,7 +92,7 @@ function addActivityToDB() {
 
     console.log("ADDED ACTIVITY = ", act);
     $.post("/add", {activity: act}, function (data) {
-        if (data.results) {
+        if (data.success) {
             console.log("SUCCESS ADDING ACTIVITY")
         } else {
             console.log("FAILURE ADDING ACTIVITY")
@@ -131,37 +131,37 @@ function addActivity() {
             '\t<option value="KY">Kentucky</option>\n' +
             '\t<option value="LA">Louisiana</option>\n' +
             '\t<option value="ME">Maine</option>\n' +
-            '\t<option value="MD">Maryland</option>\n' +
-            '\t<option value="MA">Massachusetts</option>\n' +
-            '\t<option value="MI">Michigan</option>\n' +
-            '\t<option value="MN">Minnesota</option>\n' +
-            '\t<option value="MS">Mississippi</option>\n' +
-            '\t<option value="MO">Missouri</option>\n' +
-            '\t<option value="MT">Montana</option>\n' +
-            '\t<option value="NE">Nebraska</option>\n' +
-            '\t<option value="NV">Nevada</option>\n' +
-            '\t<option value="NH">New Hampshire</option>\n' +
-            '\t<option value="NJ">New Jersey</option>\n' +
-            '\t<option value="NM">New Mexico</option>\n' +
-            '\t<option value="NY">New York</option>\n' +
-            '\t<option value="NC">North Carolina</option>\n' +
-            '\t<option value="ND">North Dakota</option>\n' +
-            '\t<option value="OH">Ohio</option>\n' +
-            '\t<option value="OK">Oklahoma</option>\n' +
-            '\t<option value="OR">Oregon</option>\n' +
-            '\t<option value="PA">Pennsylvania</option>\n' +
-            '\t<option value="RI">Rhode Island</option>\n' +
-            '\t<option value="SC">South Carolina</option>\n' +
-            '\t<option value="SD">South Dakota</option>\n' +
-            '\t<option value="TN">Tennessee</option>\n' +
-            '\t<option value="TX">Texas</option>\n' +
-            '\t<option value="UT">Utah</option>\n' +
-            '\t<option value="VT">Vermont</option>\n' +
-            '\t<option value="VA">Virginia</option>\n' +
-            '\t<option value="WA">Washington</option>\n' +
-            '\t<option value="WV">West Virginia</option>\n' +
-            '\t<option value="WI">Wisconsin</option>\n' +
-            '\t<option value="WY">Wyoming</option>\n' +
+            '<option value="MD">Maryland</option>\n' +
+            '<option value="MA">Massachusetts</option>\n' +
+            '<option value="MI">Michigan</option>\n' +
+            '<option value="MN">Minnesota</option>\n' +
+            '<option value="MS">Mississippi</option>\n' +
+            '<option value="MO">Missouri</option>\n' +
+            '<option value="MT">Montana</option>\n' +
+            '<option value="NE">Nebraska</option>\n' +
+            '<option value="NV">Nevada</option>\n' +
+            '<option value="NH">New Hampshire</option>\n' +
+            '<option value="NJ">New Jersey</option>\n' +
+            '<option value="NM">New Mexico</option>\n' +
+            '<option value="NY">New York</option>\n' +
+            '<option value="NC">North Carolina</option>\n' +
+            '<option value="ND">North Dakota</option>\n' +
+            '<option value="OH">Ohio</option>\n' +
+            '<option value="OK">Oklahoma</option>\n' +
+            '<option value="OR">Oregon</option>\n' +
+            '<option value="PA">Pennsylvania</option>\n' +
+            '<option value="RI">Rhode Island</option>\n' +
+            '<option value="SC">South Carolina</option>\n' +
+            '<option value="SD">South Dakota</option>\n' +
+            '<option value="TN">Tennessee</option>\n' +
+            '<option value="TX">Texas</option>\n' +
+            '<option value="UT">Utah</option>\n' +
+            '<option value="VT">Vermont</option>\n' +
+            '<option value="VA">Virginia</option>\n' +
+            '<option value="WA">Washington</option>\n' +
+            '<option value="WV">West Virginia</option>\n' +
+            '<option value="WI">Wisconsin</option>\n' +
+            '<option value="WY">Wyoming</option>\n' +
             '</select>' +
 
             '<label for="price">Price:</label>' +
