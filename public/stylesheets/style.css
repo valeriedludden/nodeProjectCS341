@@ -19,11 +19,15 @@ a {
 }
 #results{
   margin: auto;
-  display: flex;
-  flex-direction: row;
+  display: block;
+  /*flex-direction: row;*/
 }
 .card{
   margin: 20px;
   padding: 5px;
 
+}
+.b{
+  font-weight: bold;
+  background: lightskyblue;
 }

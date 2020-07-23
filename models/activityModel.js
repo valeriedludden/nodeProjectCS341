@@ -9,7 +9,7 @@ const pool = new Pool({
 function listAll(callback) {
     console.log("Getting list of activities");
 
-    let sql = "SELECT a.name, a.id, a.price, a.type_id, t.type, p.amount FROM activity a, type t, price p where a.type_id = t.id AND a.price = p.id ORDER BY a.name;"
+    let sql = "SELECT a.name, a.id, a.price, a.type_id, t.type, p.amount, a.city, a.state FROM activity a, type t, price p where a.type_id = t.id AND a.price = p.id ORDER BY a.name;"
 
     pool.query(sql, function(err, dbResults){
         if(err){
@@ -51,11 +51,9 @@ function getActivityById(id,callback){
 function updateActivity(id, name, callback){
     let actID = id;
     let actName = name;
-    // let actName ="Lets PARTY";
     console.log("Updating Activity ID = " + actID);
 
     let sql = `UPDATE activity a SET "name" = '${actName}' where id=${actID};`;
-
 
     pool.query(sql, function(err, dbResults){
 
@@ -65,6 +63,7 @@ function updateActivity(id, name, callback){
         else{
             let results = {
                 success: true,
+                // list: dbResults.rows
             }
             callback(null, results)
         }
@@ -79,13 +78,15 @@ function addActivity(callback){
             callback(null, results)
 
 }
-function addActivityToDB(activity1, callback){
-    // console.log("New ***** = " + activity1);
-    // let act = activity1;
-    // console.log("New Activty = " + act);
+function addActivityToDB(act, callback){
+    let act1 = act;
+    console.log("New Activty = " + act1.name);
+    console.log("New Activty = " + act1.type);
+    // act1.type = 3;
+    // act1.price = 4;
 
-    // let sql = `-- INSERT INTO activity VALUES (DEFAULT, ${act.name},${act.city},${act.state},${act.type},${act.price})`;
-    let sql = `INSERT INTO activity VALUES (DEFAULT, 'name1','MV','CA',1,1)`;
+    // let sql = `-- INSERT INTO activity VALUES (DEFAULT, ${act1.name},${act1.city},${act1.state},${act1.type},${act1.price})`;
+    let sql = `INSERT INTO activity VALUES (DEFAULT, 'Red','MV','CA',${act1.type}, 2)`;
 
 
     pool.query(sql, function(err){
