@@ -81,12 +81,12 @@ function addActivity(callback){
 function addActivityToDB(act, callback){
     let act1 = act;
     console.log("New Activty = " + act1.name);
-    console.log("New Activty = " + act1.type);
-    // act1.type = 3;
-    // act1.price = 4;
+    console.log("New type = " + act1.type);
+    act1.price = 2;
+    console.log("TYPE = " + act1.type);
 
-    // let sql = `-- INSERT INTO activity VALUES (DEFAULT, ${act1.name},${act1.city},${act1.state},${act1.type},${act1.price})`;
-    let sql = `INSERT INTO activity VALUES (DEFAULT, 'Red','MV','CA',${act1.type}, 2)`;
+    // let sql = `INSERT INTO activity VALUES (DEFAULT, ${act1.name},${act1.city},${act1.state},${act1.type},${act1.price})`;
+    let sql = `INSERT INTO activity VALUES (DEFAULT, '${act1.name}','${act1.city}','${act1.state}',${act1.type}, ${act1.price})`;
 
 
     pool.query(sql, function(err){

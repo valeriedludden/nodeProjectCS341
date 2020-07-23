@@ -79,21 +79,16 @@ function updateActivity(id) {
 }
 
 function addActivityToDB() {
-    let act = {
-        name:  $("#selectName").val(),
-        city:  $("#selectCityt").val(),
-        state:  $("#selectState").val(),
-        price: $("#selectAmount").val(),
-        type:  $("#selecttype").val()
-    }
     $("#home").empty();
-    $("#results").empty();
-    $("#singleActivity").empty();
-    $("#updateActivity").empty();
-    $("#deleteActivity").empty();
-    $("#updated").empty();
-    $("#add").empty();
-    $("#addedActivity").empty();
+
+    let act = {
+        name:  $("#addName").val(),
+        city:  $("#addCity").val(),
+        state:  $("#addState").val(),
+        price: $("#selectAmount").val(),
+        type:  $("#selectType").val()
+    }
+
 
     console.log("ADDED ACTIVITY = ", act);
     $.post("/add", {activity: act}, function (data) {
@@ -108,14 +103,6 @@ function addActivityToDB() {
 function addActivity() {
 
     $("#home").empty();
-    $("#results").empty();
-    $("#singleActivity").empty();
-    $("#updateActivity").empty();
-    $("#deleteActivity").empty();
-    $("#updated").empty();
-    $("#add").empty();
-    $("#addedActivity").empty();
-
 
     $.get("/add", function (data) {
 
