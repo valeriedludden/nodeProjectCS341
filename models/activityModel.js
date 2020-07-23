@@ -54,18 +54,48 @@ function updateActivity(id, name, callback){
     // let actName ="Lets PARTY";
     console.log("Updating Activity ID = " + actID);
 
-    let sql1 = `SELECT a.name, a.id, a.price, a.type_id, t.type, p.amount FROM activity a, type t, price p WHERE a.id = ${actID} AND  a.type_id = t.id AND a.price = p.id ORDER BY a.name;`;
-    let sql2 = `UPDATE activity a SET "name" = '${actName}' where id=${actID};`;
+    let sql = `UPDATE activity a SET "name" = '${actName}' where id=${actID};`;
 
 
-    pool.query(sql2, function(err, dbResults){
+    pool.query(sql, function(err, dbResults){
+
         if(err){
             console.log("Error line 61 activityModel ", err)
         }
         else{
             let results = {
                 success: true,
-                list: dbResults.rows
+            }
+            callback(null, results)
+        }
+    })
+}
+
+function addActivity(callback){
+
+            let results = {
+                success: true,
+            }
+            callback(null, results)
+
+}
+function addActivityToDB(activity1, callback){
+    // console.log("New ***** = " + activity1);
+    // let act = activity1;
+    // console.log("New Activty = " + act);
+
+    // let sql = `-- INSERT INTO activity VALUES (DEFAULT, ${act.name},${act.city},${act.state},${act.type},${act.price})`;
+    let sql = `INSERT INTO activity VALUES (DEFAULT, 'name1','MV','CA',1,1)`;
+
+
+    pool.query(sql, function(err){
+
+        if(err){
+            console.log("Error line 94 activityModel ", err)
+        }
+        else{
+            let results = {
+                success: true,
             }
             callback(null, results)
         }
@@ -75,5 +105,7 @@ function updateActivity(id, name, callback){
 module.exports = {
     listAll: listAll,
     getActivityById: getActivityById,
-    updateActivity:updateActivity
+    updateActivity:updateActivity,
+    addActivity: addActivity,
+    addActivityToDB,addActivityToDB
 };
