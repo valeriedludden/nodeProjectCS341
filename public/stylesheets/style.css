@@ -1,33 +1,54 @@
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+    padding: 50px;
+    font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
 a {
-  color: #00B7FF;
+    color: #00B7FF;
 }
 
 .carousel-item {
-  height: 400px;
-  object-fit: cover;
-  width: 100%;
-  max-width: 600px;
+    height: 400px;
+    object-fit: cover;
+    width: 100%;
+    max-width: 600px;
 }
-#carouselExampleSlidesOnly{
-  width: 60%;
-  margin: auto;
+
+#carouselExampleSlidesOnly {
+    width: 60%;
+    margin: auto;
 }
-#results{
-  margin: auto;
-  display: block;
-  /*flex-direction: row;*/
-}
-.card{
-  margin: 20px;
-  padding: 5px;
+
+#results {
+    margin: auto;
+    display: block;
 
 }
-.b{
-  font-weight: bold;
-  background: lightskyblue;
+
+.card {
+    margin: 20px;
+    padding: 5px;
+
+}
+
+.listTitle {
+    font-weight: bold;
+    background: lightskyblue;
+
+}
+
+.lgi1 {
+    width: 25%;
+}
+
+.lgi2 {
+    width: 20%;
+}
+
+.lgi3 {
+    width: 8%;
+}
+
+.activityList {
+    width: 100%;
 }

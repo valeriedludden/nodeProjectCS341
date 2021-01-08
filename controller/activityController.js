@@ -1,9 +1,6 @@
 const activityModel = require("../models/activityModel");
 
-// const { body, validationResult } = require('express-validator');
-
 function getActivityList(req, res) {
-    console.log("made it to the controller");
     activityModel.listAll(function (err, results) {
         res.json(results);
     })
@@ -12,7 +9,7 @@ function getActivityList(req, res) {
 function getActivityById(req, res) {
 
     let actID = req.query.id;
-    console.log("ACTIVITY ID = ", actID)
+    console.log("activity Controller line 12 ACTIVITY ID = ", actID)
     activityModel.getActivityById(actID, function (err, results) {
         res.json(results)
     });
@@ -21,7 +18,7 @@ function getActivityById(req, res) {
 function updateActivity(req, res) {
     let aName = req.body.name;
     let aId = req.body.id;
-    console.log("Update for ", aName, " ID = ", aId)
+    console.log("activity Controller line 21 Update for ", aName, " ID = ", aId)
     activityModel.updateActivity(aId, aName, function (err, results) {
         res.json(results)
     });
@@ -35,11 +32,18 @@ function addActivity(req, res) {
 
 function addActivityToDB(req, res) {
     let act = req.body.activity;
-    console.log("CONTROLLER ACTIVITY = ", act)
-    console.log("CONTROLLER ******* = ", act.name)
+    console.log("activity Controller line 35 CONTROLLER ACTIVITY = ", act)
     activityModel.addActivityToDB(act, function (err, results) {
         res.json(results)
     });
+}
+
+function deleteActivity(req, res){
+    let dId = req.body.id;
+    activityModel.deleteActivity(dId, function (err, results) {
+        res.json(results)
+    });
+
 }
 
 module.exports = {
@@ -47,5 +51,6 @@ module.exports = {
     getActivityById: getActivityById,
     updateActivity: updateActivity,
     addActivity: addActivity,
-    addActivityToDB: addActivityToDB
+    addActivityToDB: addActivityToDB,
+    deleteActivity: deleteActivity
 };

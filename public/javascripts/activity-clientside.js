@@ -15,11 +15,12 @@ function listActivities() {
         $("#results").append(`<h1>Activities</h1>
 <div>
 <ul class="list-group list-group-horizontal" id="actListContainer"> 
-      <li class="list-group-item b">Activity Name</li>
-      <li class="list-group-item b">Type</li>
-      <li class="list-group-item b">Price}</li>
-      <li class="list-group-item b">City</li>
-      <li class="list-group-item b">State</li>
+      <li class="list-group-item listTitle lgi1">Activity</li>
+      <li class="list-group-item listTitle lgi1">Type</li>
+      <li class="list-group-item listTitle lgi3">Price</li>
+      <li class="list-group-item listTitle lgi2">City</li>
+      <li class="list-group-item listTitle lgi3">State</li>
+      <li class="list-group-item listTitle lgi3">Details</li>
     </ul>
 </div>`)
 
@@ -29,12 +30,12 @@ function listActivities() {
 
             $("#results").append(`<div class='activityList'>  
     <ul class="list-group list-group-horizontal" id="actListContainer"> 
-      <li class="list-group-item">${activity.name}</li>
-      <li class="list-group-item">${activity.type}</li>
-      <li class="list-group-item">${activity.amount}</li>
-      <li class="list-group-item">${activity.city}</li>
-      <li class="list-group-item">${activity.state}</li>
-      <li class="list-group-item"><button onclick='getActivityById(${activity.id})'><i class='fas fa-edit'></i></button></li>
+      <li class="list-group-item lgi1">${activity.name}</li>
+      <li class="list-group-item lgi1">${activity.type}</li>
+      <li class="list-group-item lgi3">${activity.amount}</li>
+      <li class="list-group-item lgi2">${activity.city}</li>
+      <li class="list-group-item lgi3">${activity.state}</li>
+      <li class="list-group-item lgi3"><button onclick='getActivityById(${activity.id})'>See Details</button></li>
     </ul>
     </div>`);
 
@@ -48,15 +49,30 @@ function getActivityById(id) {
     $("#home").empty();
     $("#results").empty();
     $.get("/item/:id", {id: id}, function (data) {
-        console.log("Back from server with....");
-        console.log(data);
 
         for (var i = 0; i < data.list.length; i++) {
             var activity = data.list[i];
 
-            $("#singleActivity").append("<div class='card' style='width: 18rem;'><div class='card-body'><p class='card-text'>" + activity.name + activity.id + "</p><p class='card-text'>" + activity.amount + "</p><p class='card-text'>" + activity.type + "</p><i class=\"fas fa-edit\"></i></a></div></div>");
+            if (activity.description != null) {
+                $("#singleActivity").append("<div class='card' style='width: 18rem;'>" +
+                    "<div class='card-body'><p class='card-text'> Activity:" + activity.name + "</p>" +
+                    "<p class='card-text'> Amount: " + activity.amount + "</p>" +
+                    "<p class='card-text'> Type: " + activity.type + "</p>" +
+                    "<p class='card-text'> Description: " + activity.description + "</p>")
+            } else {
+                $("#singleActivity").append("<div class='card' style='width: 18rem;'>" +
+                    "<div class='card-body'><p class='card-text'> Activity:" + activity.name + "</p>" +
+                    "<p class='card-text'> Amount: " + activity.amount + "</p>" +
+                    "<p class='card-text'> Type: " + activity.type + "</p>" +
+                    "<p class='card-text'> Description: None</p>")
+            }
+            $("#updateActivity").append(`<div><label>Change Name To: </label>` +
+                `<input placeholder='New Name'type='text' id='activityName' name='activityName'>` +
+                `<p><input type='submit' value='Update Name' onclick="updateActivity(${id})"></p>` +
+                `<p><input type='submit' value='Delete Activity' onclick="deleteActivity(${id})"></p>` +
+                `</form><button onclick="listActivities()">Return to List of Activities</button></div>`)
+
         }
-        $("#updateActivity").append(`<div><label>Name: </label><input placeholder='Name'type='text' id='activityName' name='activityName'><input type='submit' value='Submit' onclick="updateActivity(${id})"></form></div>`)
 
     });
 }
@@ -70,32 +86,54 @@ function updateActivity(id) {
 
     $.post("/item/:id", {id: id, name: name1}, function (data) {
 
-        if(data.success){
-            $('#updated').append(`<h1>Updated activity name to ${name1}</h1>
-                <button onclick="listActivities()">Return to List of Activities</button>`)
+        if (data.success) {
+            $('#updated').append(`<h1>Updated activity name to ${name1}</h1>` +
+                `<button onclick="listActivities()">Return to List of Activities</button>`)
+        } else {
+            $('#updated').append(`<h1>Sorry, your activity could not be updated at this time</h1>` +
+                `<button onclick="listActivities()">Return to List of Activities</button>`)
         }
     });
 
+}
+
+function deleteActivity(id) {
+    let name1 = $("#activityName").val();
+    $("#updateActivity").empty();
+    $.post("/delete/:id", {id: id}, function (data) {
+
+        if (data.success) {
+            $('#updated').append(`<h1>You have successfully deleted an activity</h1>` +
+                `<button onclick="listActivities()">Return to List of Activities</button>`)
+        } else {
+            $('#updated').append(`<h1>Sorry, your activity could not be deleted at this time</h1>` +
+                `<button onclick="listActivities()">Return to List of Activities</button>`)
+        }
+    });
 }
 
 function addActivityToDB() {
     $("#home").empty();
 
     let act = {
-        name:  $("#addName").val(),
-        city:  $("#addCity").val(),
-        state:  $("#addState").val(),
+        name: $("#addName").val(),
+        city: $("#addCity").val(),
+        state: $("#addState").val(),
         price: $("#selectAmount").val(),
-        type:  $("#selectType").val()
+        type: $("#selectType").val(),
+        description: $("#addDescription").val()
     }
 
-
-    console.log("ADDED ACTIVITY = ", act);
     $.post("/add", {activity: act}, function (data) {
         if (data.success) {
-            console.log("SUCCESS ADDING ACTIVITY")
+            $("#add").empty();
+            $('#add').append(`<h2 class="addContainer">NEW ACTIVITY ${act.name} ADDED</h2>` +
+                '<button onclick="listActivities()">Return to List of Activities</button> ' +
+                '<button onclick="addActivity()">Add Another Activity</button>')
+
         } else {
-            console.log("FAILURE ADDING ACTIVITY")
+            $("#add").empty();
+            $('#add').append('<h2 class="addContainer">SORRY YOUR ACTIVITY WAS NOT ADDED. PLEASE TRY AGAIN</h2>')
         }
     })
 }
@@ -103,13 +141,14 @@ function addActivityToDB() {
 function addActivity() {
 
     $("#home").empty();
+    $("#add").empty();
 
     $.get("/add", function (data) {
 
         $('#add').append('<div class="addContainer">' +
-            '<lable>Name:</lable><input type="text" id="addName">' +
-            '<lable>City:</lable><input type="text" id="addCity">' +
-            '<lable>State:</lable>' +
+            '<p><lable >Name:</lable><input placeholder="Activity Name" type="text" id="addName"></p>' +
+            '<p><lable>City:</lable><input type="text" id="addCity"></p>' +
+            '<p><lable>State:</lable>' +
             '<select id="addState">\n' +
             '\t<option value="AL">Alabama</option>\n' +
             '\t<option value="AK">Alaska</option>\n' +
@@ -162,16 +201,16 @@ function addActivity() {
             '<option value="WV">West Virginia</option>\n' +
             '<option value="WI">Wisconsin</option>\n' +
             '<option value="WY">Wyoming</option>\n' +
-            '</select>' +
+            '</select></p>' +
 
-            '<label for="price">Price:</label>' +
+            '<p><label for="price">Price:</label>' +
             '<select name="amount" id="selectAmount">\n' +
             '<option value=1>$</option>' +
             '<option value=2>$$</option>' +
             '<option value=3>$$$</option>' +
             '<option value=4>$$$$</option>' +
-            '</select>' +
-            '<label for="type">Activity Type:</label>' +
+            '</select></p>' +
+            '<p><label for="type">Activity Type:</label>' +
             '<select name="type" id="selectType">\n' +
             '<option value=1>Dining</option>' +
             '<option value=2>Hike</option>' +
@@ -182,9 +221,9 @@ function addActivity() {
             '<option value=7>Comedy</option>' +
             '<option value=8>Christmas</option>' +
             '<option value=9>Halloween</option>' +
-            '</select>' +
+            '</select></p>' +
 
-            '<lable>Description</lable><input type="text" id="addDescription">' +
+            '<p><lable>Description</lable><input type="text" id="addDescription"></p>' +
             '' +
             '</div>' +
             '<button onclick="addActivityToDB()">Add Activity</button>')
